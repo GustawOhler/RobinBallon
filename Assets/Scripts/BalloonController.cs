@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BalloonController : MonoBehaviour
 {
-    public float howHighShouldBalloonHide = 10.0f; 
+    public float howHighShouldBalloonHide = 10.0f;
+    public int Points;
     void Start()
     {
         
@@ -22,7 +23,7 @@ public class BalloonController : MonoBehaviour
     {
         if (other.gameObject.GetComponentInParent<ArrowController>() != null)
         {
-            MainController.MainControllerInstance.AddOnePoint();
+            MainController.MainControllerInstance.AddPoints(Points);
             Destroy(gameObject);
         }
     }
