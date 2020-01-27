@@ -20,10 +20,15 @@ public class ButtonController : MonoBehaviour
             SceneManager.LoadScene("MainGameScene");
             chosenDiff = MainController.LevelDifficulties.Long;
             SceneManager.sceneLoaded += OnSceneLoaded;
-        } else
+        } else if (type == "hardcore")
         {
             SceneManager.LoadScene("MainGameScene");
             chosenDiff = MainController.LevelDifficulties.Hardcore;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        } else
+        {
+            SceneManager.LoadScene("MainGameScene");
+            chosenDiff = MainController.LevelDifficulties.Training;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
