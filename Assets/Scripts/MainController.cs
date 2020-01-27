@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Assets.Scripts.Models;
+using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour
 {
     public GameObject BalloonPrefab;
     public GameObject OculusPlayerHandler;
     public GameObject ComputerPlayerHandler;
-    public float SecsForNewBalloon = 2.0f;
     private float MinXForNewBalloon = -50.0f;
     private float MaxXForNewBalloon = 50.0f;
     private float MinZForNewBalloon = -50.0f;
@@ -17,6 +17,8 @@ public class MainController : MonoBehaviour
     public float VelocityOfBallonGoingUp = 5.0f;
     public static MainController MainControllerInstance { get { return _instance; } }
     public GameObject PointsText;
+    public GameObject LevelText;
+    public GameObject TimeText;
     public Transform BackWall;
     public Transform FrontWall;
     public Transform RightWall;
@@ -30,13 +32,23 @@ public class MainController : MonoBehaviour
         new BalloonProperties("Red", 3.75F, 500),
         new BalloonProperties("Yellow", 2F, 300)
     };
+    public readonly List<LevelProperties> PossibleLevelProperties = new List<LevelProperties>()
+    {
+        new LevelProperties(1.5f, 120, "Normal"),
+        new LevelProperties(1.5f, 240, "Long"),
+        new LevelProperties(0.25f, 60, "Hardcore"),
+        new LevelProperties(0.85f, int.MaxValue, "Training")
+    };
+    private LevelProperties ChosenLevel;
+    public enum LevelDifficulties { Normal, Long, Hardcore, Training };
     public int Points
     {
         get; private set;
     }
 
     private System.Random randGenerator;
-    private float timer = 0.0f;
+    private float BalloonSpawnTimer = 0.0f;
+    private float GameTimer = 0.0f;
     private static MainController _instance;
     private int _points;
 
@@ -50,6 +62,7 @@ public class MainController : MonoBehaviour
         {
             _instance = this;
         }
+        ChooseLevelDiff(LevelDifficulties.Normal);
     }
 
     void Start()
@@ -72,13 +85,28 @@ public class MainController : MonoBehaviour
         MaxXForNewBalloon = RightWall.position.x - 2.0f;
         MinZForNewBalloon = cameraZPosition + 2.0f;
         MaxZForNewBalloon = FrontWall.position.z - 2.0f;
+        if (ChosenLevel.Name == "Training")
+        {
+            TimeText = null;
+        }
+        //ChooseLevelDiff(LevelDifficulties.Normal);
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
+        BalloonSpawnTimer += Time.deltaTime;
+        GameTimer += Time.deltaTime;
+        if (TimeText != null)
+        {
+            TimeText.GetComponent<TextMesh>().text = "Time left: " + (ChosenLevel.SecondsForGame - (int)GameTimer);
+        }
 
-        if (timer > SecsForNewBalloon)
+        if((float)ChosenLevel.SecondsForGame - GameTimer < 0.0f)
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
+
+        if (BalloonSpawnTimer > ChosenLevel.BalloonTimeInterval)
         {
             var balObj = Instantiate(BalloonPrefab, RandomPosition(), BalloonPrefab.transform.rotation);
             var choosenProperty = PossibleBalloonProperties[randGenerator.Next(0, PossibleBalloonProperties.Count - 1)];
@@ -86,7 +114,7 @@ public class MainController : MonoBehaviour
             var balRB = balObj.GetComponent<Rigidbody>();
             balRB.velocity = new Vector3(0, VelocityOfBallonGoingUp * choosenProperty.SpeedMultiplier, 0);
             balObj.GetComponent<BalloonController>().Points = choosenProperty.Points;
-            timer = 0.0f;
+            BalloonSpawnTimer = 0.0f;
         }
     }
 
@@ -107,5 +135,27 @@ public class MainController : MonoBehaviour
     {
         Points += points;
         PointsText.GetComponent<TextMesh>().text = "Punkty: " + Points;
+    }
+
+    public void ChooseLevelDiff(LevelDifficulties chosenDiff)
+    {
+        switch (chosenDiff)
+        {
+            case LevelDifficulties.Normal:
+                ChosenLevel = PossibleLevelProperties.Find(p => p.Name == "Normal");
+                break;
+            case LevelDifficulties.Long:
+                ChosenLevel = PossibleLevelProperties.Find(p => p.Name == "Long");
+                break;
+            case LevelDifficulties.Hardcore:
+                ChosenLevel = PossibleLevelProperties.Find(p => p.Name == "Hardcore");
+                break;
+            case LevelDifficulties.Training:
+                ChosenLevel = PossibleLevelProperties.Find(p => p.Name == "Training");
+                break;
+            default:
+                break;
+        }
+        LevelText.GetComponent<TextMesh>().text = ChosenLevel.Name;
     }
 }

@@ -8,8 +8,15 @@ namespace Assets.Scripts.Models
 {
     public class LevelProperties
     {
-        public float sizeOfTerrain;
-        public int balloonQuantity;
-        public float balloonTimeInterval;
+        public float BalloonTimeInterval;
+        public int SecondsForGame;
+        public string Name;
+
+        public LevelProperties(float balloonTimeInterval, int secondsForGame, string name)
+        {
+            BalloonTimeInterval = balloonTimeInterval;
+            SecondsForGame = secondsForGame;
+            Name = name;
+        }
     }
 }
