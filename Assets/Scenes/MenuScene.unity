@@ -707,7 +707,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LONG
+  m_Text: Long
 --- !u!222 &569316879
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1351,7 +1351,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HARDCORE
+  m_Text: Hardcore
 --- !u!222 &1359158365
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2116,7 +2116,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TRAINING
+  m_Text: Training
 --- !u!222 &2030441271
 CanvasRenderer:
   m_ObjectHideFlags: 0
