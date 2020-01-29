@@ -16,11 +16,12 @@ public class ArrowCollider : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Kolizja!");
-        if (collision.gameObject.GetComponent<BalloonController>() != null)
-        {
-            Destroy(collision.gameObject);
-            Debug.Log("Zdobyty punkt!");
-        }
+        //Debug.Log("Kolizja!");
+        //if (collision.gameObject.GetComponent<BalloonController>() != null)
+        //{
+        //    Destroy(collision.gameObject);
+        //    Debug.Log("Zdobyty punkt!");
+        //}
+        GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 }

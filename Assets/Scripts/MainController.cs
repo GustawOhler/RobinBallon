@@ -16,9 +16,9 @@ public class MainController : MonoBehaviour
     private float MaxZForNewBalloon = 50.0f;
     public float VelocityOfBallonGoingUp = 5.0f;
     public static MainController MainControllerInstance { get { return _instance; } }
-    public GameObject PointsText;
-    public GameObject LevelText;
-    public GameObject TimeText;
+    public List<GameObject> PointsText;
+    public List<GameObject> LevelText;
+    public List<GameObject> TimeText;
     public Transform BackWall;
     public Transform FrontWall;
     public Transform RightWall;
@@ -69,7 +69,7 @@ public class MainController : MonoBehaviour
     {
         randGenerator = new System.Random();
         Points = 0;
-        PointsText.GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
         float cameraZPosition = BackWall.position.z + 5.0f;
         if (UnityEngine.XR.XRDevice.isPresent)
         {
@@ -87,7 +87,7 @@ public class MainController : MonoBehaviour
         MaxZForNewBalloon = FrontWall.position.z - 2.0f;
         if (ChosenLevel.Name == "Training")
         {
-            TimeText = null;
+            TimeText.Find(x => x.activeSelf).SetActive(false);
         }
         //ChooseLevelDiff(LevelDifficulties.Normal);
     }
@@ -96,9 +96,9 @@ public class MainController : MonoBehaviour
     {
         BalloonSpawnTimer += Time.deltaTime;
         GameTimer += Time.deltaTime;
-        if (TimeText != null)
+        if (TimeText.Find(x => x.activeSelf) != null)
         {
-            TimeText.GetComponent<TextMesh>().text = "Time left: " + (ChosenLevel.SecondsForGame - (int)GameTimer);
+            TimeText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Time left: " + (ChosenLevel.SecondsForGame - (int)GameTimer);
         }
 
         if((float)ChosenLevel.SecondsForGame - GameTimer < 0.0f)
@@ -128,13 +128,13 @@ public class MainController : MonoBehaviour
     public void AddOnePoint()
     {
         Points++;
-        PointsText.GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
     }
 
     public void AddPoints(int points)
     {
         Points += points;
-        PointsText.GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
     }
 
     public void ChooseLevelDiff(LevelDifficulties chosenDiff)
@@ -156,6 +156,6 @@ public class MainController : MonoBehaviour
             default:
                 break;
         }
-        LevelText.GetComponent<TextMesh>().text = ChosenLevel.Name;
+        LevelText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = ChosenLevel.Name;
     }
 }
