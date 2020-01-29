@@ -69,7 +69,7 @@ public class MainController : MonoBehaviour
     {
         randGenerator = new System.Random();
         Points = 0;
-        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Points: " + Points;
         float cameraZPosition = BackWall.position.z + 5.0f;
         if (UnityEngine.XR.XRDevice.isPresent)
         {
@@ -128,13 +128,13 @@ public class MainController : MonoBehaviour
     public void AddOnePoint()
     {
         Points++;
-        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Points: " + Points;
     }
 
     public void AddPoints(int points)
     {
         Points += points;
-        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Punkty: " + Points;
+        PointsText.Find(x => x.activeSelf).GetComponent<TextMesh>().text = "Points: " + Points;
     }
 
     public void ChooseLevelDiff(LevelDifficulties chosenDiff)
