@@ -123,3 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   howHighShouldBalloonHide: 15
+  Points: 0
