@@ -17,18 +17,18 @@ public class VRInput : BaseInput
 
     //public override bool GetMouseButton(int button)
     //{
-    //    return OVRInput.Get(clickButton, controller);
+    //    return OVRInput.Get(OVRInput.Button.Back);
     //}
 
-    //public override bool GetMouseButtonDown(int button)
-    //{
-    //    return OVRInput.GetDown(clickButton, controller);
-    //}
+    public override bool GetMouseButtonDown(int button)
+    {
+        return OVRInput.GetDown(OVRInput.Button.Back);
+    }
 
-    //public override bool GetMouseButtonUp(int button)
-    //{
-    //    return OVRInput.GetUp(clickButton, controller);
-    //}
+    public override bool GetMouseButtonUp(int button)
+    {
+        return OVRInput.GetUp(OVRInput.Button.Back);
+    }
 
 
     public override Vector2 mousePosition
