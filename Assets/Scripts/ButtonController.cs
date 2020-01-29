@@ -25,11 +25,24 @@ public class ButtonController : MonoBehaviour
             SceneManager.LoadScene("MainGameScene");
             chosenDiff = MainController.LevelDifficulties.Hardcore;
             SceneManager.sceneLoaded += OnSceneLoaded;
-        } else
+        } else if (type == "training")
         {
             SceneManager.LoadScene("MainGameScene");
             chosenDiff = MainController.LevelDifficulties.Training;
             SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else if (type == "exit")
+        {
+#if UNITY_STANDALONE
+            //Quit the application
+            Application.Quit();
+#endif
+
+            //If we are running in the editor
+#if UNITY_EDITOR
+            //Stop playing the scene
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
     }
 

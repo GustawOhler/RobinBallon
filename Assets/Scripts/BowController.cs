@@ -87,7 +87,7 @@ public class BowController : MonoBehaviour
                 }
             }
 
-            if (!isShotLoading && OVRInput.Get(OVRInput.Button.Back))
+            if (!isShotLoading && OVRInput.Get(OVRInput.Button.One))
             {
                 arrowObject = Instantiate(arrowPrefab, transform);
                 startYPos = arrowObject.transform.localPosition.y;
@@ -97,7 +97,7 @@ public class BowController : MonoBehaviour
                 isShotLoading = true;
             }
 
-            if (isShotLoading && !OVRInput.Get(OVRInput.Button.Back))
+            if (isShotLoading && !OVRInput.Get(OVRInput.Button.One))
             {
                 var fractionOfMax = shotTimer / secondsToMaxPower;
                 float forceForShot = force * fractionOfMax;

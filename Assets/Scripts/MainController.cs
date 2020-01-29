@@ -101,7 +101,7 @@ public class MainController : MonoBehaviour
             TimeText.Find(x => x.activeInHierarchy).GetComponent<TextMesh>().text = "Time left: " + (ChosenLevel.SecondsForGame - (int)GameTimer);
         }
 
-        if((float)ChosenLevel.SecondsForGame - GameTimer < 0.0f)
+        if ((float)ChosenLevel.SecondsForGame - GameTimer < 0.0f || OVRInput.Get(OVRInput.Button.Back))
         {
             SceneManager.LoadScene("MenuScene");
         }

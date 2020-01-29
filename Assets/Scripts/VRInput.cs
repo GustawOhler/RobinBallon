@@ -22,12 +22,12 @@ public class VRInput : BaseInput
 
     public override bool GetMouseButtonDown(int button)
     {
-        return OVRInput.GetDown(OVRInput.Button.Back);
+        return OVRInput.GetDown(OVRInput.Button.One);
     }
 
     public override bool GetMouseButtonUp(int button)
     {
-        return OVRInput.GetUp(OVRInput.Button.Back);
+        return OVRInput.GetUp(OVRInput.Button.One);
     }
 
 
